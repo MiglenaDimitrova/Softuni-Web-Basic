@@ -27,10 +27,23 @@ namespace Git.Services
             this.db.SaveChanges();
         }
 
-        public ICollection<RepoViewModel> GetAllPublicRepositories()
+        public List<RepoViewModel> GetAllPublicRepositories()
         {
             return this.db.Repositories
                 .Where(x => x.IsPublic == true)
+                .Select(x => new RepoViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    CreatedOn = x.CreatedOn,
+                    Owner = x.Owner.Username,
+                    CommitsCount = x.Commits.Count
+                }).ToList();
+        }
+        public List<RepoViewModel> GetAllPrivateRepositories(string userId)
+        {
+            return this.db.Repositories
+                .Where(x => x.IsPublic == false&& x.OwnerId== userId)
                 .Select(x => new RepoViewModel
                 {
                     Id = x.Id,

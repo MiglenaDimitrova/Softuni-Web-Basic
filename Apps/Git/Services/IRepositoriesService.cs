@@ -8,7 +8,8 @@ namespace Git.Services
     public interface IRepositoriesService
     {
         void CreateRepository(CreateRepositoryModel input, string userId);
-        ICollection<RepoViewModel> GetAllPublicRepositories();
+        List<RepoViewModel> GetAllPublicRepositories();
+        List<RepoViewModel> GetAllPrivateRepositories(string userId);
 
     }
 }

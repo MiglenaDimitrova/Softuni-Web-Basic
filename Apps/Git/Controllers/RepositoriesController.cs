@@ -19,11 +19,13 @@ namespace Git.Controllers
 
         public HttpResponse All()
         {
+            var allPublicRepos = this.repositoriesService.GetAllPublicRepositories();
             if (!this.IsUserSignedIn())
             {
-                return this.Redirect("/");
+                return this.View(allPublicRepos);
             }
-            var allRepos = this.repositoriesService.GetAllPublicRepositories();
+            var allRepos = this.repositoriesService.GetAllPrivateRepositories(this.GetUserId());
+            allRepos.AddRange(allPublicRepos);
             return this.View(allRepos);
         }
 

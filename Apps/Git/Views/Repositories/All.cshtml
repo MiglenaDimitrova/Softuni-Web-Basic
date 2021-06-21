@@ -25,15 +25,19 @@
                         <tbody>
                             @foreach (var repo in @Model)
                             {
-                                <tr class="table-light">
-                                    <th scope="row">@repo.Name</th>
-                                    <td>@repo.Owner</td>
-                                    <td>@repo.CreatedOn</td>
-                                    <td>@repo.CommitsCount</td>
+                            <tr class="table-light">
+                                <th scope="row">@repo.Name</th>
+                                <td>@repo.Owner</td>
+                                <td>@repo.CreatedOn</td>
+                                <td>@repo.CommitsCount</td>
+                                @if (User!=null)
+                                {
                                     <td>
                                         <a class="btn btn-block btn-primary text-white mb-3" href="/Commits/Create?id=@repo.Id">Commit</a>
                                     </td>
-                                </tr>
+                                }
+
+                            </tr>
                             }
 
                         </tbody>
