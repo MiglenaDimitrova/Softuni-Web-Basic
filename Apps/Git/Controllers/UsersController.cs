@@ -88,9 +88,9 @@ namespace Git.Controllers
             {
                 return this.Error("Username is not available!");
             }
-
             this.usersService.CreateUser(input.Username,input.Email, input.Password);
             return this.Redirect("/Users/Login");
+            
         }
 
         public HttpResponse Logout()
