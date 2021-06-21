@@ -33,6 +33,7 @@ namespace Git.Services
                 .Where(x => x.IsPublic == true)
                 .Select(x => new RepoViewModel
                 {
+                    Id = x.Id,
                     Name = x.Name,
                     CreatedOn = x.CreatedOn,
                     Owner = x.Owner.Username,

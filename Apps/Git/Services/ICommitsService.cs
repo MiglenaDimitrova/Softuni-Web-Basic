@@ -1,4 +1,5 @@
-﻿using Git.ViewModels;
+﻿using Git.Data;
+using Git.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,8 +8,10 @@ namespace Git.Services
 {
     public interface ICommitsService
     {
-        void AddCommite(string userId, string repositoryId);
-        ICollection<CommiteViewModel> GetMyCommits(string userId);
-        void DeleteCommite(string commiteId);
+        Commit GetCommit(string commitId); 
+        void CreateCommit(CommitInputModel input, string userId);
+        RepositoryViewModelForGetCommit GetRepositoryViewModel(string repositoryId);
+        ICollection<CommitViewModel> GetMyCommits(string userId);
+        void DeleteCommit(string commitId);
     }
 }

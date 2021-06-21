@@ -1,4 +1,5 @@
 ﻿using Git.Services;
+using Git.ViewModels;
 using SUS.HTTP;
 using SUS.MvcFramework;
 using System;
@@ -15,34 +16,59 @@ namespace Git.Controllers
         {
             this.commitsService = commitsService;
         }
-        public HttpResponse All(string repositoryId)
+        public HttpResponse All()
         {
             if (!this.IsUserSignedIn())
             {
                 return this.Redirect("/");
             }
-
-            var allCommits = commitsService.GetAllCommits();
+            var userId = this.GetUserId();
+            var allCommits = commitsService.GetMyCommits(userId);
             return this.View(allCommits);
         }
+
         public HttpResponse Create(string id)
         {
             if (!this.IsUserSignedIn())
             {
                 return this.Redirect("/");
             }
-
-            return this.View();
+            var model = this.commitsService.GetRepositoryViewModel(id);
+            return this.View(model);
         }
 
+        [HttpPost]
+        public HttpResponse Create(CommitInputModel input)
+        {
+            if (!this.IsUserSignedIn())
+            {
+                return this.Redirect("/");
+            }
+            if (String.IsNullOrWhiteSpace(input.Description)|| input.Description.Length<5)
+            {
+                return this.Error("At least 5 characters required.");
+            }
+
+            var userId = this.GetUserId();
+            this.commitsService.CreateCommit(input,userId);
+            return this.Redirect("/Repositories/All");
+        }
+        
         public HttpResponse Delete(string id)
         {
             if (!this.IsUserSignedIn())
             {
                 return this.Redirect("/");
             }
-
-            return this.View();
+            var userId = this.GetUserId();
+            var commit = this.commitsService.GetCommit(id);
+            var commitCreator = commit.CreatorId;
+            if (commitCreator!=userId)
+            {
+                return this.Error("Unauthorized action!");
+            }
+            this.commitsService.DeleteCommit(id);
+            return this.Redirect("/Commits/All");
         }
     }
 }

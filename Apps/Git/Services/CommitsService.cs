@@ -14,26 +14,58 @@ namespace Git.Services
         {
             this.db = db;
         }
-        public void CreateCommit(string userId, string repositoryId)
+
+        public void CreateCommit(CommitInputModel input, string userId)
         {
-            throw new NotImplementedException();
+            var commit = new Commit
+            {
+                 Description = input.Description,
+                 CreatedOn = DateTime.UtcNow,
+                 CreatorId = userId,
+                 RepositoryId = input.RepositoryId,
+            };
+            this.db.Commits.Add(commit);
+            this.db.SaveChanges();
         }
 
-        public void DeleteCommit(string commiteId)
+        
+
+        public void DeleteCommit(string commitId)
         {
-            throw new NotImplementedException();
+            var commit = this.db.Commits.Where(x => x.Id == commitId).FirstOrDefault();
+            this.db.Commits.Remove(commit);
+            this.db.SaveChanges();
+        }
+
+        public Commit GetCommit(string commitId)
+        {
+            return this.db.Commits.Where(x => x.Id == commitId).FirstOrDefault();
         }
 
         public ICollection<CommitViewModel> GetMyCommits(string userId)
         {
-            return this.db.Commits
+            var commits =  this.db.Commits
                 .Where(x => x.CreatorId == userId)
                 .Select(x => new CommitViewModel
                 {
-                   RepositoryName = x.Repository.Name,
+                   Id = x.Id,
+                   Name = x.Repository.Name,
                    Description = x.Description,
                    CreatedOn = x.CreatedOn
                 }).ToList();
+
+            return commits;
+        }
+
+        public RepositoryViewModelForGetCommit GetRepositoryViewModel(string repositoryId)
+        {
+            return this.db.Repositories.Where(x => x.Id == repositoryId)
+                .Select(x=> new RepositoryViewModelForGetCommit
+                {
+                    Name = x.Name,
+                    Id = x.Id
+                })
+                .FirstOrDefault();
         }
     }
 }

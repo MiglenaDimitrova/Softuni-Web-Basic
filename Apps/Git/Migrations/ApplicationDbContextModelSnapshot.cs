@@ -99,18 +99,21 @@ namespace Git.Migrations
                 {
                     b.HasOne("Git.Data.User", "Creator")
                         .WithMany("Commits")
-                        .HasForeignKey("CreatorId");
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Git.Data.Repository", "Repository")
                         .WithMany("Commits")
-                        .HasForeignKey("RepositoryId");
+                        .HasForeignKey("RepositoryId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Git.Data.Repository", b =>
                 {
                     b.HasOne("Git.Data.User", "Owner")
                         .WithMany("Repositories")
-                        .HasForeignKey("OwnerId");
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }

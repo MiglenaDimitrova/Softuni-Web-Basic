@@ -23,5 +23,25 @@
                 optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=Git;Integrated Security=true;");
             }
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Commit>()
+                .HasOne(x => x.Creator)
+                .WithMany(x => x.Commits)
+                .HasForeignKey(x => x.CreatorId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Commit>()
+                .HasOne(x => x.Repository)
+                .WithMany(x => x.Commits)
+                .HasForeignKey(x => x.RepositoryId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Repository>()
+                .HasOne(x => x.Owner)
+                .WithMany(x => x.Repositories)
+                .HasForeignKey(x => x.OwnerId)
+                .OnDelete(DeleteBehavior.Restrict);
+        }
     }
 }
