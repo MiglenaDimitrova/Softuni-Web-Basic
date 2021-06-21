@@ -22,7 +22,7 @@ namespace Git.Services
                  Description = input.Description,
                  CreatedOn = DateTime.UtcNow,
                  CreatorId = userId,
-                 RepositoryId = input.RepositoryId,
+                 RepositoryId = input.Id,
             };
             this.db.Commits.Add(commit);
             this.db.SaveChanges();
