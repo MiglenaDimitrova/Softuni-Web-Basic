@@ -23,12 +23,14 @@ namespace CarShop.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Owner")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Model")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("OwnerId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("PictureUrl")
                         .IsRequired()
@@ -43,6 +45,8 @@ namespace CarShop.Migrations
                         .HasMaxLength(20);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
 
                     b.ToTable("Cars");
                 });
@@ -94,6 +98,15 @@ namespace CarShop.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("CarShop.Data.Models.Car", b =>
+                {
+                    b.HasOne("CarShop.Data.Models.User", "Owner")
+                        .WithMany()
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("CarShop.Data.Models.Issue", b =>

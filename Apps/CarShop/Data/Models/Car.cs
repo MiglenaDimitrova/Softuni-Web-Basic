@@ -16,6 +16,9 @@ namespace CarShop.Data.Models
 
         [Required]
         [MaxLength(20)]
+        public string Model { get; set; }
+        [Required]
+        [MaxLength(20)]
         public int Year { get; set; }
 
         [Required]
@@ -27,7 +30,7 @@ namespace CarShop.Data.Models
         [Required]
         public string OwnerId { get; set; }
 
-        public string Owner { get; set; }
+        public User Owner { get; set; }
         public ICollection<Issue> Issues { get; set; }
         
     }

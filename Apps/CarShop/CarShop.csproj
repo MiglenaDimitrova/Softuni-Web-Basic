@@ -61,4 +61,8 @@
     <ProjectReference Include="..\..\SUS.MvcFramework\SUS.MvcFramework.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ViewModels\Cars\" />
+  </ItemGroup>
+
 </Project>
