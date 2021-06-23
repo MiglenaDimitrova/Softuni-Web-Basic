@@ -8,13 +8,14 @@
                 </div>
 
                 <div class="d-flex justify-content-center">
-                    <a class="btn btn-block btn-primary text-white mb-3" href="/Issues/Add?CarId={Id}">Add a new Issue</a>
+                    <a class="btn btn-block btn-primary text-white mb-3" href="/Issues/Add?CarId=@Model.CarId">Add a new Issue</a>
                 </div>
 
                 <div class="component">
                     <table class="table table-hover">
                         <thead class=" table-active">
                             <tr>
+                                <a href="~/Views/Issues/CarIssues.cshtml">~/Views/Issues/CarIssues.cshtml</a>
                                 <th scope="col">Description</th>
                                 <th scope="col">Is it fixed?</th>
                                 <th scope="col" class="text-center">Fix Issue</th>
@@ -22,17 +23,19 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="table-light">
-                                <td>Broken Valve</td>
-                                <td>Not yet</td>
-                                <td>
-                                    <a class="btn btn-block btn-primary text-white mb-3" href="/Issues/Fix?issueId={Id}&CarId={Id}">Fix Issue</a>
-                                </td>
-                                <td>
-                                    <a class="btn btn-block btn-primary text-white mb-3" href="/Issues/Delete?issueId={Id}&CarId={Id}">Delete Issue</a>
-                                </td>
-                            </tr>
-
+                            @foreach (var issue in Model.Issues)
+                            {
+                                <tr class="table-light">
+                                    <td>@issue.Description</td>
+                                    <td>@issue.IsItFixed</td>
+                                    <td>
+                                        <a class="btn btn-block btn-primary text-white mb-3" href="/Issues/Fix?issueId=@issue.IssueId&CarId=@issue.CarId">Fix Issue</a>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-block btn-primary text-white mb-3" href="/Issues/Delete?issueId=@issue.IssueId&CarId=@issue.CarId">Delete Issue</a>
+                                    </td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>

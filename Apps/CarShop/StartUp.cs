@@ -21,6 +21,7 @@ namespace CarShop
         {
             serviceCollection.Add<IUsersService, UsersService>();
             serviceCollection.Add<ICarsService, CarsService>();
+            serviceCollection.Add<IIssuesService, IssuesService>();
         }
     }
 }
