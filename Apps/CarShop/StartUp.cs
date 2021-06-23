@@ -20,7 +20,7 @@ namespace CarShop
         public void ConfigureServices(IServiceCollection serviceCollection)
         {
             serviceCollection.Add<IUsersService, UsersService>();
-           // serviceCollection.Add<ICarsService, CarsService>();
+            serviceCollection.Add<ICarsService, CarsService>();
         }
     }
 }
