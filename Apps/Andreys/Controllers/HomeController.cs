@@ -1,25 +1,36 @@
 ﻿namespace Andreys.App.Controllers
 {
+    using Andreys.Services;
     using SUS.HTTP;
     using SUS.MvcFramework;
 
     public class HomeController : Controller
     {
-        [HttpGet("/")]
-        public HttpResponse IndexSlash()
+        private readonly IProductsService productsService;
+
+        public HomeController(IProductsService productsService)
         {
-            
-            return this.Index();
+            this.productsService = productsService;
         }
 
+        [HttpGet("/")]
         public HttpResponse Index()
         {
-            if (this.IsUserSignedIn())
+            if (!this.IsUserSignedIn())
             {
-                var obj = new object ();
-                this.View(obj, "Home");//подаваме конкретно view!
+                return this.View();
             }
-            return this.Index();
+            else
+            {
+                return this.Home();
+            }
+            
+        }
+        public HttpResponse Home()
+        {
+                //TODO : Validations
+                var products = this.productsService.GetAllProducts();
+                return this.View(products);
         }
     }
 }
