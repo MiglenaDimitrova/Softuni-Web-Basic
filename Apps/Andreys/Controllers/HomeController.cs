@@ -1,13 +1,25 @@
 ﻿namespace Andreys.App.Controllers
 {
-    using SIS.HTTP;
-    using SIS.MvcFramework;
+    using SUS.HTTP;
+    using SUS.MvcFramework;
 
     public class HomeController : Controller
     {
+        [HttpGet("/")]
+        public HttpResponse IndexSlash()
+        {
+            
+            return this.Index();
+        }
+
         public HttpResponse Index()
-        { 
-            return this.View();
+        {
+            if (this.IsUserSignedIn())
+            {
+                var obj = new object ();
+                this.View(obj, "Home");//подаваме конкретно view!
+            }
+            return this.Index();
         }
     }
 }

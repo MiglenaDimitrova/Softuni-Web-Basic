@@ -1,6 +1,6 @@
 ﻿namespace Andreys.App
 {
-    using SIS.MvcFramework;
+    using SUS.MvcFramework;
 
     using System.Threading.Tasks;
 
@@ -8,7 +8,7 @@
     {
         public static async Task Main()
         {
-            await WebHost.StartAsync(new Startup());
+            await Host.CreateHostAsync(new Startup());
         }
     }
 }
