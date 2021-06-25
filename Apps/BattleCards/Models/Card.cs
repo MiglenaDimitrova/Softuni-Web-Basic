@@ -25,7 +25,7 @@ namespace BattleCards.Models
 
         public int Attack { get; set; }
 
-        public string Health { get; set; }
+        public int Health { get; set; }
 
         [Required]
         [MaxLength(200)]

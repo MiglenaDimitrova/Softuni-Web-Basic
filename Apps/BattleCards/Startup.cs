@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using BattleCard.Services;
     using BattleCards.Data;
+    using BattleCards.Services;
     using Microsoft.EntityFrameworkCore;
     using SUS.HTTP;
     using SUS.MvcFramework;
@@ -18,6 +19,7 @@
         public void ConfigureServices(IServiceCollection serviceCollection)
         {
             serviceCollection.Add<IUsersService, UsersService>();
+            serviceCollection.Add<ICardsService, CardsService>();
         }
     }
 }

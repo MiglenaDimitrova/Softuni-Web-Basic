@@ -21,7 +21,7 @@ namespace Git.Controllers
         {
             if (this.IsUserSignedIn())
             {
-                return this.Redirect("/");
+                return this.Redirect("/Cards/All");
             }
             return this.View();
         }
@@ -31,7 +31,7 @@ namespace Git.Controllers
         {
             if (this.IsUserSignedIn())
             {
-                return this.Redirect("/");
+                return this.Redirect("/Cards/All");
             }
             var userId = this.usersService.GetUserId(input.Username, input.Password);
 
@@ -47,7 +47,7 @@ namespace Git.Controllers
         {
             if (this.IsUserSignedIn())
             {
-                return this.Redirect("/");
+                return this.Redirect("/Cards/All");
             }
             return this.View();
         }
@@ -57,7 +57,7 @@ namespace Git.Controllers
         {
             if (this.IsUserSignedIn())
             {
-                return this.Redirect("/");
+                return this.Redirect("/Cards/All");
             }
             if (String.IsNullOrWhiteSpace( input.Username)||input.Username.Length<5|| input.Username.Length > 20)
             {
