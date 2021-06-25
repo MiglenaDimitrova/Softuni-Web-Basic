@@ -1,6 +1,7 @@
 ﻿namespace BattleCards
 {
     using System.Collections.Generic;
+    using BattleCard.Services;
     using BattleCards.Data;
     using Microsoft.EntityFrameworkCore;
     using SUS.HTTP;
@@ -16,7 +17,7 @@
 
         public void ConfigureServices(IServiceCollection serviceCollection)
         {
-            
+            serviceCollection.Add<IUsersService, UsersService>();
         }
     }
 }
